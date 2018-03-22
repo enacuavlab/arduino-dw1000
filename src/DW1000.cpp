@@ -545,6 +545,7 @@ void DW1000Class::tune() {
 	} else {
 		// TODO proper error/warning handling
 	}
+#if 0 ///!!!!!! Big hack to set full transmission power
 	// TX_POWER (enabled smart transmit power control)
 	if(_channel == CHANNEL_1 || _channel == CHANNEL_2) {
 		if(_pulseFrequency == TX_PULSE_FREQ_16MHZ) {
@@ -629,6 +630,9 @@ void DW1000Class::tune() {
 	} else {
 		// TODO proper error/warning handling
 	}
+#else
+  writeValueToBytes(txpower, 0x1F1F1F1FL, LEN_TX_POWER);
+#endif
 	// Crystal calibration from OTP (if available)
 	byte buf_otp[4];
 	readBytesOTP(0x01E, buf_otp);
