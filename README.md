@@ -1,17 +1,36 @@
 # arduino-dw1000
-A library that offers functionality to use Decawave's DW1000 chips/modules with Arduino
+
+![Required know-how](https://img.shields.io/badge/Required%20know--how-professional-red.svg)
+![Additional hardware required](https://img.shields.io/badge/Additional%20hardware-required-orange.svg)
+![c++11](https://img.shields.io/badge/C%2B%2B-11-brightgreen.svg)
+[![releases](https://img.shields.io/github/release/thotro/arduino-dw1000.svg?colorB=00aa00)](https://github.com/thotro/arduino-dw1000/releases)
+![min arduino ide](https://img.shields.io/badge/ArduinoIDE-%3E%3D1.6.10-lightgrey.svg)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/thotro/arduino-dw1000/master/LICENSE.md)
+
+A library that offers basic functionality to use Decawave's DW1000 chips/modules with Arduino
 (see http://www.decawave.com/products/dwm1000-module).
 
 Project state
 -------------
 
-**Progress:** 90% (requires some minor optimizations and a lot more testing towards a v1.0 release)
+**Development:**
+There is no active development by the owner *thotro*. Anyway this library is still maintained, so make pull requests if you found a bug or developed a new feature!
 
-**Current milestone:** MAC and frame filtering, error handling
+**TODOs:**
+* Fill wiki: https://github.com/thotro/arduino-dw1000/wiki
+* MAC and frame filtering, error handling
+* Sleep/power optimizations
+* Refactor `DW1000Mac`
+* Refactor `DW1000Ranging`
+* Refactor `DW1000Device`
+* Update examples (complete todos in header notice)
 
-**Subsequent milestone:** Sleep/power optimizations
+**What can I do with this lib?:**
+Stable transmission of messages between two modules is possible. The code for device tuning is working as well, hence different modes of operation can be chosen. As frame filtering (i.e. via MAC conforming messages) is partially implemented yet, internal features of the chip for node addressing and auto-acknowledgement of messages can not be used. This is part of a future milestone. For now, if acknowledgements are required, they have to be sent manually and node addresses have to be encoded in the message payload and processed by the host controller.
 
-**General notice:** Stable transmission of messages between two modules is possible. The code for device tuning is working as well, hence different modes of operation can be chosen. As frame filtering (i.e. via MAC conforming messages) is not implemented yet, internal features of the chip for node addressing and auto-acknowledgement of messages can not be used. This is part of a future milestone. For now, if acknowledgements are required, they have to be sent manually and node addresses have to be encoded in the message payload and processed by the host controller.
+**General notice:**
+* The documentation https://github.com/thotro/arduino-dw1000/tree/master/extras/doc is manually generated and maybe out of date.
+* Datasheet and application notices are available at http://www.decawave.com/ (require free registration).
 
 Installation
 ------------
@@ -43,15 +62,25 @@ Usage
 General usage of the DW1000 library is depicted below. Please see the Arduino test example codes (described in the [project structure](../../wiki/Project-structure)) for more up-to-date and operational reference usage. 
 
 At the moment the library contains two types:
- * **DW1000:** The statically accessible entity to work with your modules. Offers a variety of configuration options and manages module states and actions. 
+ * **DW1000:**
+ State: stable.
+ The statically accessible entity to work with your modules. Offers a variety of configuration options and manages module states and actions. 
  
- * **DW1000Time:** Container entities that handle DW1000 specific timing values. These are required to allow accurate timestamps and time based computations; they aid in avoiding potential precision and capacity problems of standard number formats in Arduino and basically are wrapper objects for 64-bit signed integer data types; most importantly they take care of all bit-to-time-and-distance (and vice versa) conversions.
+ * **DW1000Time:**
+ State: stable.
+ Container entities that handle DW1000 specific timing values. These are required to allow accurate timestamps and time based computations; they aid in avoiding potential precision and capacity problems of standard number formats in Arduino and basically are wrapper objects for 64-bit signed integer data types; most importantly they take care of all bit-to-time-and-distance (and vice versa) conversions.
  
- * **DW1000Ranging:** Contain all functions which allow to make the ranging protocole. 
+ * **DW1000Ranging:**
+ State: prototype.
+ Contain all functions which allow to make the ranging protocole. 
  
- * **DW1000Device:** Contain all informations (long address, short ephemeral address, DW1000Time of transition)  about a distant device (anchor or tag) on the same network.
+ * **DW1000Device:**
+ State: prototype.
+ Contain all informations (long address, short ephemeral address, DW1000Time of transition)  about a distant device (anchor or tag) on the same network.
  
- * **DW1000Mac:** This class is a child of the DW1000Device class and allow to generate the MAC frame for his DW1000Device parent.
+ * **DW1000Mac:**
+ State: prototype.
+ This class is a child of the DW1000Device class and allow to generate the MAC frame for his DW1000Device parent.
  
 
 ```Arduino
@@ -98,4 +127,6 @@ DW1000.startReceive();
 ...
 ```
 
-
+License
+-------
+Apache License 2.0 (see [LICENSE.md](https://github.com/thotro/arduino-dw1000/blob/master/LICENSE.md))
