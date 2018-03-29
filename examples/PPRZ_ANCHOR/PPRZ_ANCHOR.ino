@@ -25,10 +25,16 @@ void setup() {
   //DW1000Ranging.useRangeFilter(true);
 
   //we start the module as an anchor
-  DW1000Ranging.startAsAnchor("01:00:5B:D5:A9:9A:E2:9C", DW1000.MODE_LONGDATA_RANGE_ACCURACY, false);
-  //DW1000Ranging.startAsAnchor("02:00:5B:D5:A9:9A:E2:9C", DW1000.MODE_LONGDATA_RANGE_ACCURACY, false);
+  //DW1000Ranging.startAsAnchor("01:00:5B:D5:A9:9A:E2:9C", DW1000.MODE_LONGDATA_RANGE_ACCURACY, false);
+  DW1000Ranging.startAsAnchor("02:00:5B:D5:A9:9A:E2:9C", DW1000.MODE_LONGDATA_RANGE_ACCURACY, false);
   //DW1000Ranging.startAsAnchor("03:00:5B:D5:A9:9A:E2:9C", DW1000.MODE_LONGDATA_RANGE_ACCURACY, false);
   //DW1000Ranging.startAsAnchor("04:00:5B:D5:A9:9A:E2:9C", DW1000.MODE_LONGDATA_RANGE_ACCURACY, false);
+
+  // change power config by hand
+  byte txpower[LEN_TX_POWER];
+  DW1000.writeValueToBytes(txpower, 0x1F1F1F1FL, LEN_TX_POWER); // max
+  //DW1000.writeValueToBytes(txpower, 0xC0C0C0C0L, LEN_TX_POWER); // min
+  DW1000.writeBytes(TX_POWER, NO_SUB, txpower, LEN_TX_POWER);
 }
 
 void loop() {

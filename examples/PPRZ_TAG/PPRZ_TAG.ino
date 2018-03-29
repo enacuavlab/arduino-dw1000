@@ -7,7 +7,7 @@
 #include <SPI.h>
 #include "DW1000Ranging.h"
 
-#define DEBUG 0
+#define DEBUG 1
 
 // connection pins
 const uint8_t PIN_RST = 9; // reset pin
@@ -30,6 +30,12 @@ void setup() {
 
   //we start the module as a tag
   DW1000Ranging.startAsTag("00:00:22:EA:82:60:3B:9C", DW1000.MODE_LONGDATA_RANGE_ACCURACY, false);
+
+  // change power config by hand
+  byte txpower[LEN_TX_POWER];
+  DW1000.writeValueToBytes(txpower, 0x1F1F1F1FL, LEN_TX_POWER); // max
+  //DW1000.writeValueToBytes(txpower, 0xC0C0C0C0L, LEN_TX_POWER); // min
+  DW1000.writeBytes(TX_POWER, NO_SUB, txpower, LEN_TX_POWER);
 }
 
 void loop() {
